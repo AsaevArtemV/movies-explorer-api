@@ -60,7 +60,7 @@ const createUser = (req, res, next) => {
           .map((error) => `${error.message.slice(5)}`)
           .join(' ')}`));
       } else if (err.code === 11000) {
-        next(new ConflictError('Пользователь с таким email существует'));
+        next(new ConflictError('Пользователь с таким email уже существует'));
       } else {
         next(err);
       }
@@ -86,7 +86,7 @@ const updateUserInfo = (req, res, next) => {
           .map((error) => `${error.message.slice(5)}`)
           .join(' ')}`));
       } else if (err.code === 11000) {
-        next(new ConflictError('Пользователь с таким email существует'));
+        next(new ConflictError('Пользователь с таким email уже существует'));
       } else {
         next(err);
       }
