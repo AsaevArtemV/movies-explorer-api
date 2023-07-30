@@ -5,7 +5,7 @@ const {
   updateUserInfo,
 } = require('../controllers/users');
 
-router.get('/', getUserInfo);
+router.get('/me', getUserInfo);
 
 router.patch(
   '/me',
