@@ -9,7 +9,12 @@ const {
   ValidationError,
 } = require('../errors/errors');
 const {
+  NOT_FOUND,
+  INCORRECT,
   INVALID_USER,
+  EXISTS,
+  NOT_TRANSMITTED,
+  NO_USER,
 } = require('../constants/message');
 
 const SALT_ROUNDS = 10;
@@ -23,14 +28,14 @@ const getUserInfo = (req, res, next) => {
   User.findById(userId)
     .then((user) => {
       if (!user) {
-        next(new NotFoundError(`Пользователь по указанному id: ${userId} не найден`));
+        next(new NotFoundError(NOT_FOUND));
       } else {
         res.status(200).send(user);
       }
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError(`Получение пользователя с некорректным id: ${userId}`));
+        next(new BadRequestError(INCORRECT));
       } else {
         next(err);
       }
@@ -63,7 +68,7 @@ const createUser = (req, res, next) => {
           .map((error) => `${error.message.slice(5)}`)
           .join(' ')}`));
       } else if (err.code === 11000) {
-        next(new ConflictError('Пользователь с таким email уже существует'));
+        next(new ConflictError(EXISTS));
       } else {
         next(err);
       }
@@ -78,7 +83,7 @@ const updateUserInfo = (req, res, next) => {
   User.findByIdAndUpdate(userId, { name, email }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
-        next(new NotFoundError(`Пользователь по указанному id: ${userId} не найден`));
+        next(new NotFoundError(NOT_FOUND));
       } else {
         res.status(200).send(user);
       }
@@ -89,7 +94,7 @@ const updateUserInfo = (req, res, next) => {
           .map((error) => `${error.message.slice(5)}`)
           .join(' ')}`));
       } else if (err.code === 11000) {
-        next(new ConflictError('Пользователь с таким email уже существует'));
+        next(new ConflictError(EXISTS));
       } else {
         next(err);
       }
@@ -100,19 +105,23 @@ const login = (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    throw new BadRequestError('Не передан email или пароль');
+    throw new BadRequestError(NOT_TRANSMITTED);
   }
   return User.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        throw new UnauthorizedError('Такого пользователя не существует');
+        throw new UnauthorizedError(NO_USER);
       }
       return bcrypt.compare(password, user.password)
         .then((correctPassword) => {
           if (!correctPassword) {
             throw new UnauthorizedError(INVALID_USER);
           }
-          const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : KEY_PASSWORD, { expiresIn: '7d' });
+          const token = jwt.sign(
+            { _id: user._id },
+            NODE_ENV === 'production' ? JWT_SECRET : KEY_PASSWORD,
+            { expiresIn: '7d' },
+          );
           return res.send({ jwt: token });
         });
     })
