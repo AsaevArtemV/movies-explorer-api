@@ -56,7 +56,7 @@ const deleteMovie = (req, res, next) => {
         throw new ForbiddenError(IMPOSSIBLE);
       } else {
         Movie.findByIdAndRemove(movieId)
-          .then((removedCard) => res.status(200).send(removedCard))
+          .then((deletedMovie) => res.status(200).send(deletedMovie))
           .catch((err) => {
             next(err);
           });

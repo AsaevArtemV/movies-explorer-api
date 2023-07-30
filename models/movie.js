@@ -8,8 +8,12 @@ const movieSchema = new Schema({
     required: [true, 'Поле "country" должно быть заполнено'],
   },
   director: {
-    type: Number,
+    type: String,
     required: [true, 'Поле "director" должно быть заполнено'],
+  },
+  duration: {
+    type: Number,
+    required: [true, 'Поле "duration" должно быть заполнено'],
   },
   year: {
     type: String,
@@ -27,12 +31,12 @@ const movieSchema = new Schema({
   trailerLink: {
     type: String,
     validate: validationСheck,
-    required: [true, 'Поле "image" должно быть заполнено'],
+    required: [true, 'Поле "trailerLink" должно быть заполнено'],
   },
   thumbnail: {
     type: String,
     validate: validationСheck,
-    required: [true, 'Поле "image" должно быть заполнено'],
+    required: [true, 'Поле "thumbnail" должно быть заполнено'],
   },
   owner: {
     type: Schema.Types.ObjectId,
