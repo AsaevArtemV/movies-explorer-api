@@ -1,5 +1,5 @@
 # movies-explorer-api
-# Проект Mesto фронтенд + бэкенд 
+# Дипломный проект - бэкенд
 [Ссылка на проект movies-explorer-api](https://github.com/AsaevArtemV/movies-explorer-api)
 
 ## Стек технологий:
