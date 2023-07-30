@@ -8,6 +8,9 @@ const {
   UnauthorizedError,
   ValidationError,
 } = require('../errors/errors');
+const {
+  INVALID_USER,
+} = require('../constants/message');
 
 const SALT_ROUNDS = 10;
 const { NODE_ENV, JWT_SECRET } = process.env;
@@ -107,7 +110,7 @@ const login = (req, res, next) => {
       return bcrypt.compare(password, user.password)
         .then((correctPassword) => {
           if (!correctPassword) {
-            throw new UnauthorizedError('Неверный пользователь или пароль');
+            throw new UnauthorizedError(INVALID_USER);
           }
           const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : KEY_PASSWORD, { expiresIn: '7d' });
           return res.send({ jwt: token });
