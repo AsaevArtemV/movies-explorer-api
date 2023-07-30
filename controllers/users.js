@@ -109,8 +109,8 @@ const login = (req, res, next) => {
           if (!correctPassword) {
             throw new UnauthorizedError('Неверный пользователь или пароль');
           }
-          const JWT = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : KEY_PASSWORD, { expiresIn: '7d' });
-          return res.send({ jwt: JWT });
+          const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : KEY_PASSWORD, { expiresIn: '7d' });
+          return res.send({ jwt: token });
         });
     })
     .catch((err) => {

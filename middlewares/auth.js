@@ -11,11 +11,11 @@ const auth = (req, res, next) => {
     throw new UnauthorizedError('Необходима авторизация');
   }
 
-  const JWT = authorization.replace('Bearer ', '');
+  const token = authorization.replace('Bearer ', '');
   let payload;
 
   try {
-    payload = jwt.verify(JWT, NODE_ENV === 'production' ? JWT_SECRET : KEY_PASSWORD);
+    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : KEY_PASSWORD);
   } catch (err) {
     next(new UnauthorizedError('Необходима авторизация'));
   }
