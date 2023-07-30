@@ -26,9 +26,11 @@ const getMovies = (req, res, next) => {
 
 // создаёт фильм
 const createMovie = (req, res, next) => {
+  const owner = req.user._id;
+
   Movie.create({
     ...req.body,
-    owner: req.user._id,
+    owner,
   })
     .then((newMovie) => {
       res.status(201).send(newMovie);
