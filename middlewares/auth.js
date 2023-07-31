@@ -14,7 +14,10 @@ const auth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : KEY_PASSWORD);
+    payload = jwt.verify(
+      token,
+      NODE_ENV === 'production' ? JWT_SECRET : KEY_PASSWORD,
+    );
   } catch (err) {
     next(new UnauthorizedError(AUTHORIZATION_REQUIRED));
   }

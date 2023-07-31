@@ -8,6 +8,7 @@ const EXISTS = 'Пользователь с таким email уже сущест
 const NOT_TRANSMITTED = 'Не передан email или пароль';
 const NO_USER = 'Такого пользователя не существует';
 const AUTHORIZATION_REQUIRED = 'Необходима авторизация';
+const SERVER_ERROR = 'Необходима авторизация';
 
 module.exports = {
   FIELD,
@@ -20,4 +21,5 @@ module.exports = {
   NOT_TRANSMITTED,
   NO_USER,
   AUTHORIZATION_REQUIRED,
+  SERVER_ERROR,
 };
