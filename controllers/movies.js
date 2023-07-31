@@ -48,16 +48,14 @@ const createMovie = (req, res, next) => {
 
 // удаляет сохранённый фильм по id
 const deleteMovie = (req, res, next) => {
-  const { movieId } = req.params;
-
-  Movie.findById(movieId)
+  Movie.findById(req.params._id)
     .then((movie) => {
       if (!movie) {
         throw new NotFoundError(ABSENT);
       } else if (movie.owner.toString() !== req.user._id) {
         throw new ForbiddenError(IMPOSSIBLE);
       } else {
-        Movie.findByIdAndRemove(movieId)
+        Movie.findByIdAndRemove(req.params._id)
           .then((deletedMovie) => res.status(200).send(deletedMovie))
           .catch((err) => {
             next(err);
