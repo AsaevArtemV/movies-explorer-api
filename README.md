@@ -1,4 +1,5 @@
 # movies-explorer-api
+
 # Дипломный проект - бэкенд
 [Ссылка на проект movies-explorer-api](https://github.com/AsaevArtemV/movies-explorer-api)
 
@@ -8,11 +9,6 @@
 * express.js
 * MongoDB
 * Mongoose
-
-## Запуск проекта
-
-`npm run start` — запускает сервер   
-`npm run dev` — запускает сервер с hot-reload
 
 ## Ссылки на проект
 
