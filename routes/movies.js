@@ -3,7 +3,7 @@ const { celebrate, Joi } = require('celebrate');
 const {
   getMovies,
   createMovie,
-  deleteMovie,
+  deleteMovieById,
 } = require('../controllers/movies');
 const validationСheck = require('../utils/validationСheck');
 
@@ -36,7 +36,7 @@ router.delete(
       _id: Joi.string().length(24).hex().required(),
     }),
   }),
-  deleteMovie,
+  deleteMovieById,
 );
 
 module.exports = router;

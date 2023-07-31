@@ -47,7 +47,7 @@ const createMovie = (req, res, next) => {
 };
 
 // удаляет сохранённый фильм по id
-const deleteMovie = (req, res, next) => {
+const deleteMovieById = (req, res, next) => {
   Movie.findById(req.params._id)
     .then((movie) => {
       if (!movie) {
@@ -74,5 +74,5 @@ const deleteMovie = (req, res, next) => {
 module.exports = {
   getMovies,
   createMovie,
-  deleteMovie,
+  deleteMovieById,
 };
