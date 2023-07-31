@@ -39,8 +39,9 @@ const deleteMoviesId = celebrate({
 });
 
 const patchUserMe = celebrate({
-  params: Joi.object().keys({
-    _id: Joi.string().length(24).hex().required(),
+  body: Joi.object().keys({
+    name: Joi.string().min(2).max(30).required(),
+    email: Joi.string().email().required(),
   }),
 });
 
