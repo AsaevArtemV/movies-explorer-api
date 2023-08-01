@@ -17,9 +17,12 @@ const {
   NO_USER,
 } = require('../constants/message');
 
-const SALT_ROUNDS = 10;
-const { NODE_ENV, JWT_SECRET } = process.env;
-const KEY_PASSWORD = 'somepassword';
+const {
+  NODE_ENV,
+  JWT_SECRET,
+  KEY_PASSWORD,
+  SALT_ROUNDS,
+} = require('../constants/environment');
 
 // возвращает информацию о пользователе
 const getUserInfo = (req, res, next) => {
